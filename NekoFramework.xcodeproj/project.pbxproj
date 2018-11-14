@@ -6,11 +6,31 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C00848A92191F6CF00652BD5 /* NekoAPIFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C00848AA2191F6CF00652BD5 /* Build configuration list for PBXAggregateTarget "NekoAPIFramework" */;
+			buildPhases = (
+				C00848AD2191F74100652BD5 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = NekoAPIFramework;
+			productName = NekoAPIFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		C008489C2191DF2200652BD5 /* NekoJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008489B2191DF2200652BD5 /* NekoJSONParser.swift */; };
+		C008489E2191DF8900652BD5 /* NekoAPIMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008489D2191DF8900652BD5 /* NekoAPIMaster.swift */; };
+		C00848A52191E3A700652BD5 /* NekoLocalWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00848A42191E3A700652BD5 /* NekoLocalWeather.swift */; };
 		C09373E221820F5A0040205B /* NekoFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = C09373E021820F5A0040205B /* NekoFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C008489B2191DF2200652BD5 /* NekoJSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NekoJSONParser.swift; sourceTree = "<group>"; };
+		C008489D2191DF8900652BD5 /* NekoAPIMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NekoAPIMaster.swift; sourceTree = "<group>"; };
+		C00848A42191E3A700652BD5 /* NekoLocalWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NekoLocalWeather.swift; sourceTree = "<group>"; };
 		C09373DD21820F5A0040205B /* NekoFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NekoFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09373E021820F5A0040205B /* NekoFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NekoFramework.h; sourceTree = "<group>"; };
 		C09373E121820F5A0040205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -27,6 +47,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C00848972191D9DA00652BD5 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C008489B2191DF2200652BD5 /* NekoJSONParser.swift */,
+				C008489D2191DF8900652BD5 /* NekoAPIMaster.swift */,
+				C09373E021820F5A0040205B /* NekoFramework.h */,
+				C00848A42191E3A700652BD5 /* NekoLocalWeather.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C00848982191D9FC00652BD5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		C09373D321820F5A0040205B = {
 			isa = PBXGroup;
 			children = (
@@ -46,8 +84,9 @@
 		C09373DF21820F5A0040205B /* NekoFramework */ = {
 			isa = PBXGroup;
 			children = (
-				C09373E021820F5A0040205B /* NekoFramework.h */,
 				C09373E121820F5A0040205B /* Info.plist */,
+				C00848972191D9DA00652BD5 /* Source */,
+				C00848982191D9FC00652BD5 /* Assets */,
 			);
 			path = NekoFramework;
 			sourceTree = "<group>";
@@ -93,8 +132,12 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Prilog;
 				TargetAttributes = {
+					C00848A92191F6CF00652BD5 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					C09373DC21820F5A0040205B = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -111,6 +154,7 @@
 			projectRoot = "";
 			targets = (
 				C09373DC21820F5A0040205B /* NekoFramework */,
+				C00848A92191F6CF00652BD5 /* NekoAPIFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -125,17 +169,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C00848AD2191F74100652BD5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C09373D921820F5A0040205B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C008489E2191DF8900652BD5 /* NekoAPIMaster.swift in Sources */,
+				C00848A52191E3A700652BD5 /* NekoLocalWeather.swift in Sources */,
+				C008489C2191DF2200652BD5 /* NekoJSONParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		C00848AB2191F6CF00652BD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C00848AC2191F6CF00652BD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C09373E321820F5A0040205B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -261,6 +344,7 @@
 		C09373E621820F5A0040205B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -277,6 +361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Prilog.NekoFramework;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -285,6 +370,7 @@
 		C09373E721820F5A0040205B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -309,6 +395,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C00848AA2191F6CF00652BD5 /* Build configuration list for PBXAggregateTarget "NekoAPIFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C00848AB2191F6CF00652BD5 /* Debug */,
+				C00848AC2191F6CF00652BD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C09373D721820F5A0040205B /* Build configuration list for PBXProject "NekoFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
